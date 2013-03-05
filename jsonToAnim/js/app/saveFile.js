@@ -3,7 +3,10 @@
     
     this.SaveFile = (function ()
     {
-        
+        /*
+         * Constructor
+         * @param {Object} opt, object containing default path to php script and export json file
+         */
         function SaveFile (opt)
         {
             this.fileOpt = opt || {
@@ -12,13 +15,18 @@
             this.initListener();
         }
         
-        
+        /**
+         * auto initialize event listener -> request export animation to json
+         */
         SaveFile.prototype.initListener = function() 
         {
             var _this = this;
             $(window).bind('export-json', function (e, txt){ _this.saveFile(txt); });
         };
         
+        /**
+         * call php script to save json file which will handle animation
+         */
         SaveFile.prototype.saveFile = function(txt) 
         {
             var _this = this;
@@ -34,6 +42,10 @@
             .always(function() { console.log("complete saving json"); });
         };
         
+        /**
+         * retrieve json file
+         * @return json
+         */
         SaveFile.prototype.getFile = function()
         {
             var _this = this;
@@ -49,6 +61,7 @@
             .always(function() { console.log("complete loading json"); });
         };
         
+        // return objet to be used inside the global scope
         return SaveFile;
 
     })();

@@ -3,7 +3,10 @@
     
     this.AnimRecorder = (function ()
     {
-        
+        /**
+         * constructor
+         * @param {String} video, path to video
+         */
         function AnimRecorder (video)
         {
             this.a = {};
@@ -16,7 +19,11 @@
             
             this.init();
         }
-        
+        /**
+         * auto initialize,
+         * 		- create video tag
+         * 		- request overlay creation
+         */
         AnimRecorder.prototype.init = function() 
         {
             var _this = this;
@@ -36,6 +43,14 @@
             });
         };
         
+        /**
+         * Overlay creation,
+         * 		- create overlay, get width / height from video tag properties
+         * 		- create user UI
+         * 			- button save JSON button
+         * 			- button play ( which launch anim with normal speed )
+         * 		- auto launch event listener
+         */
         AnimRecorder.prototype.createOverlay = function() 
         {
             this.ov = $('<div />');
@@ -71,6 +86,9 @@
             //window.saveFile.getFile();
         };
         
+        /**
+         * launch user event listener
+         */
         AnimRecorder.prototype.initListener = function() 
         {
             var _this = this, vidEl = this.v.get(0), playingInterval = null;
@@ -129,6 +147,10 @@
             });
         };
         
+        /**
+         * Called each 10 milliseconds
+         * 		- render anim from JSON object
+         */
         AnimRecorder.prototype.playing = function(e) 
         {
             var vidEl = this.v.get(0);
@@ -140,16 +162,20 @@
                 this.div.css({
                     left : this.a[min][sec].x,
                     top : this.a[min][sec].y
-                })
+                });
             }
         };
         
+        /**
+         * stop listening to user event
+         */
         AnimRecorder.prototype.removeListener = function() 
         {
             this.ov.unbind('click');
             $('body').unbind('keyup');
         };
         
+        // return objet to be used inside the global scope
         return AnimRecorder;
 
     })();

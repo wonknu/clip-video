@@ -18,22 +18,28 @@
         /**
          * auto initialize event listener -> request export animation to json
          */
-        SaveFile.prototype.initListener = function() 
+        SaveFile.prototype.initListener = function () 
         {
             var _this = this;
             $(window).bind('export-json', function (e, txt){ _this.saveFile(txt); });
+            
+            $('#save-textarea').bind('click', function ()
+            {
+                if($("textarea").text() != "") _this.saveFile(JSON.parse($("textarea").val()));
+            });
         };
         
         /**
          * call php script to save json file which will handle animation
          */
-        SaveFile.prototype.saveFile = function(txt) 
+        SaveFile.prototype.saveFile = function(_json) 
         {
             var _this = this;
+            $('textarea').text(JSON.stringify(_json, null, 4));
             $.ajax({
                 type: "GET",
                 url: _this.fileOpt.name + ".php",
-                data: { txt: txt },
+                data: { txt : JSON.stringify(_json) },
                 dataType: "json"
             }).done(function(res) {
                 console.log("succes saving json");
@@ -46,7 +52,7 @@
          * retrieve json file
          * @return json
          */
-        SaveFile.prototype.getFile = function()
+        SaveFile.prototype.getFile = function ()
         {
             var _this = this;
             $.ajax({
@@ -55,7 +61,8 @@
                 dataType: "json"
             }).done(function(res) {
                 console.log("succes loading json");
-                return JSON.parse(res);
+                $('textarea').text(JSON.stringify(res, null, 4));
+                return res;
             })
             .fail(function() { console.log("error loading json"); })
             .always(function() { console.log("complete loading json"); });

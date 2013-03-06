@@ -30,7 +30,7 @@
             
             this.v = $('<video controls="controls"/>');
             this.v.append('<source src="' + this.v_url + '" type="video/mp4" />');
-            $('body').append(this.v);
+            $('.container').append(this.v);
             
             this.w = this.v.height();
             this.h = this.v.width();
@@ -38,7 +38,6 @@
             {
                 _this.w = $(this).width();
                 _this.h = $(this).height();
-                
                 _this.createOverlay();
             });
         };
@@ -62,7 +61,7 @@
                 top : 0,
                 left : 0
             });
-            $('body').append(this.ov);
+            $('.container').append(this.ov);
             
             this.div = $('<div />');
             this.div.css({
@@ -75,15 +74,18 @@
             });
             this.ov.append(this.div);
             
-            this.b = $('<button type="button" style="display:block">save</button>');
-            $('body').append(this.b);
+            this.b = $('<button type="button" class="btn btn-success">save</button>');
+            $('.container').append(this.b);
             
-            this.b_play = $('<button type="button">play</button>');
-            $('body').append(this.b_play);
+            this.b_play = $('<button type="button" class="btn">play</button>');
+            $('.container').append(this.b_play);
+            
+            this.b_toogle = $('<button type="toogle-overlay" class="btn">toogle overlay</button>');
+            $('.container').append(this.b_toogle);
             
             this.initListener();
+            window.saveFile.getFile()
             
-            //window.saveFile.getFile();
         };
         
         /**
@@ -123,7 +125,7 @@
             
             this.b.bind('click', function ()
             {
-                $(window).trigger('export-json', [JSON.stringify([_this.a])]);
+                $(window).trigger('export-json', [[_this.a]]);
             });
             
             this.b_play.bind('click', function ()
@@ -144,6 +146,11 @@
                 console.log(_this.a);
                 
                 vidEl.play();
+            });
+            
+            this.b_toogle.bind('click', function ()
+            {
+                _this.ov.toggleClass('hidden');
             });
         };
         

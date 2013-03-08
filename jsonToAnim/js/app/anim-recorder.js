@@ -84,7 +84,7 @@
             $('.container').append(this.b_toogle);
             
             this.initListener();
-            window.saveFile.getFile()
+            window.saveFile.getFile();
             
         };
         
@@ -142,8 +142,6 @@
                 {
                     if(playingInterval != null && playingInterval != undefined) clearInterval(playingInterval);
                 }, false);
-                
-                console.log(_this.a);
                 
                 vidEl.play();
             });

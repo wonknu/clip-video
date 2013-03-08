@@ -5,8 +5,17 @@ html, body{width:100%;height:100%;margin:0px;padding:0px;}
 }
 
 /* BUTTONS */
+.btn-layer{ /* container button */
+    pointer-events: none;
+    width : 100%;
+    height : 100%;
+    position : absolute;
+    top : 0;
+    left : 0;
+}
 .btn-anim{
     position:absolute;
+    pointer-events: auto;
 }
 .btn-anim a{
     background: url('../img/ui/button.png')no-repeat 0 0 transparent;

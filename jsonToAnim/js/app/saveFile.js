@@ -41,9 +41,8 @@
                 url: _this.fileOpt.name + ".php",
                 data: { txt : JSON.stringify(_json) },
                 dataType: "json"
-            }).done(function(res) {
-                console.log("succes saving json");
             })
+            .done(function(res) { console.log("succes saving json"); })
             .fail(function() { console.log("error saving json"); })
             .always(function() { console.log("complete saving json"); });
         };
@@ -59,7 +58,8 @@
                 type: "GET",
                 url: _this.fileOpt.name + ".json",
                 dataType: "json"
-            }).done(function(res) {
+            })
+            .done(function(res) {
                 console.log("succes loading json");
                 $('textarea').text(JSON.stringify(res, null, 4));
                 return res;

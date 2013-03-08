@@ -10,6 +10,7 @@ var Video = (function ()
     var _instance, // only instance of the Singleton object
         $videoObject = null,
         videoPlayer = null,
+        $vid_obj = null,
         options = null,
         PLAYING_EVENT = "video-is-playing",
         IS_FULLSCREEN = false;
@@ -36,7 +37,7 @@ var Video = (function ()
         if(options.daddy != null && options.daddy != undefined) options.daddy.append($videoObject); // add to parent container
         videoPlayer = $videoObject.get(0);
         
-        var $vid_obj = _V_( "revolver-mix").ready(function ()
+        $vid_obj = _V_( "revolver-mix").ready(function ()
         {
             $("img.vjs-poster").attr("src", options.poster).show();
             // reset the UI states
@@ -50,41 +51,71 @@ var Video = (function ()
         
     }
     
+    function sendEventUpdate (force)
+    {
+        var force = force || false;
+        $(window).trigger(EVENTS.VIDEO_UPDT_TIME, [{
+            min : $vid_obj.currentTime().toFixed(0),
+            sec : $vid_obj.currentTime().toFixed(1),
+            force : force
+        }]);
+    }
+    
     function initListener () // private methode
     {
         videoPlayer.addEventListener('playing', function (e)
         {
             console.log('PLAYING');
             //playingInterval = setInterval(function(){ _this.playing(e); }, 10);
+            $vid_obj.addEvent('timeupdate', function (e)
+            {
+                sendEventUpdate();
+            });
         }, false);
         
         videoPlayer.addEventListener('pause', function (e)
         {
             console.log('PAUSED');
             //if(playingInterval != null && playingInterval != undefined) clearInterval(playingInterval);
+            $vid_obj.removeEvent('timeupdate');
         }, false);
         
         $('.vjs-fullscreen-control').live('click', function(e)
         {
+            var newWidth;
             e.preventDefault();
             
             if(IS_FULLSCREEN){
                 IS_FULLSCREEN = false;
+                newWidth = options.width;
                 options.daddy.css({
                     "position" : "relative",
-                    "width" : options.width + "px",
-                    "height" : options.height + "px"
+                    "width" : newWidth + "px",
+                    "height" : options.height + "px",
+                    "left" : 0,
+                    'margin-left' : 0
                 });
             }
             else{
                 IS_FULLSCREEN = true;
+                newWidth = $(window).width() * 0.9;
                 options.daddy.css({
                     "position" : "absolute",
-                    "width" : $(window).width(),
-                    "height" : "100%"
+                    "width" : newWidth,
+                    "height" : (STATIC.HEIGHT * (newWidth/STATIC.WIDTH)),
+                    "left" : ($(window).width() * .5) + "px",
+                    'margin-left' : "-" + (newWidth * .5) + "px"
                 });
             }
+            
+            $(window).trigger(EVENTS.VIDEO_RESIZE, [newWidth]);
+            sendEventUpdate(true);
         });
+    }
+    
+    function removeListener ()
+    {
+        
     }
     
     /**

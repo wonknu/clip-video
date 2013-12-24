@@ -1,0 +1,7 @@
+# Ignored directories #
+#######################
+# Video
+video/
+
+#project
+.project

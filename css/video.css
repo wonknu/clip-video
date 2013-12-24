@@ -1,0 +1,21 @@
+/**
+ * clip video application stylesheet
+ ****************************************/
+.ng-scope {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+.video-wrapper {
+  position: relative;
+  width: auto;
+  display: inline-block;
+}
+.overlay-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 209, 49, 0.3);
+  top: 0;
+  left: 0;
+}

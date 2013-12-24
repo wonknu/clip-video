@@ -1,0 +1,13 @@
+<div class="video-url" ng-controller="VideoInput" >
+    <form name="video_form" ng-submit="videoForm(video_form)">
+        <input
+            type="text"
+            placeholder="{{placeholder}}"
+            ng-pattern="/^http\://[a-zA-Z0-9\-\.]+(/\S*)[a-zA-Z0-9\-\.].mp4?$/" 
+            name="url"
+            ng-model="url"
+            required >
+        <input type="submit" value="{{buttonSubmit}}"/>
+        <span ng-show="video_form.url.$error.pattern">Wrong video url!</span>
+    </form>
+</div>

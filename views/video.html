@@ -1,0 +1,13 @@
+<div ng-controller="VideoCtrl" >
+    <div class="video-wrapper">
+        <video class="video" controls="controls">
+            <source src="{{source}}" type="video/mp4"></source>
+        </video>
+        <div class="overlay-video" ng-mousemove="trackMove($event)"></div>
+    </div>
+    <div>
+        <textarea name="anim_json" ng-model="anim_json" cols="30" rows="10">
+        
+        </textarea>
+    </div>
+</div>

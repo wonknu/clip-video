@@ -5,79 +5,16 @@
         <title>VidAnimator</title>
         <meta name="description" content="" />
         <meta name="author" content="Fabrice" />
+        <link rel="stylesheet" href="css/video.css" />
     </head>
     <body ng-app="VideoApp">
-        <div class="video-url" ng-controller="VideoInput" >
-            <form name="video_form" ng-submit="videoForm(video_form)">
-                <input
-                    type="text"
-                    placeholder="{{placeholder}}"
-                    ng-pattern="/^http\://[a-zA-Z0-9\-\.]+(/\S*)[a-zA-Z0-9\-\.].mp4?$/" 
-                    name="url"
-                    ng-model="url"
-                    required >
-                <input type="submit" value="{{buttonSubmit}}"/>
-                <span ng-show="video_form.url.$error.pattern">Wrong video url!</span>
-            </form>
-        </div>
-        <ng-view>
-            
-        </ng-view>
+        <ng-view></ng-view>
         <script src="js/lib/angular.min.js" charset="utf-8"></script>
         <script src="js/lib/angular-route.min.js" charset="utf-8"></script>
-        <script type="text/javascript" charset="utf-8">
-            var videoApp = angular.module("VideoApp", ['ngRoute']);
-            
-            videoApp.config(function ($sceDelegateProvider)
-            {
-                $sceDelegateProvider.resourceUrlWhitelist(['^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?\(vimeo|youtube)\.com(/.*)?$', 'self']);
-                $sceDelegateProvider.resourceUrlWhitelist(['.*', 'self']);
-            });
-            
-            videoApp.controller('VideoInput', ['$scope', '$location', 'Video', function($scope, $location, Video)
-            {
-                $scope.video = Video;
-                $scope.placeholder = 'url to your video';
-                $scope.buttonSubmit = 'Load video';
-                $scope.videoForm = function (videoForm)
-                {
-                    if(videoForm.$valid){
-                        Video.setUrl($scope.url);
-                        $location.path("/video");
-                    }
-                };
-            }]);
-            
-            videoApp.controller("VideoCtrl", ['$scope', 'Video', function($scope, Video)
-            {
-                $scope.source = Video.getUrl();
-            }]);
-            
-            videoApp.factory('Video', function ()
-            {
-                var data = {url : ''};
-                return {
-                    setUrl : function (url)
-                    {
-                        data.url = url;
-                    },
-                    getUrl : function ()
-                    {
-                        return data.url;
-                    }
-                };
-            });
-            
-            videoApp.config(function ($routeProvider)
-            {
-                $routeProvider.when(
-                "/video",
-                {
-                    templateUrl: "routes/video.html",
-                    controller: "VideoCtrl"
-                });
-            });
-            
-        </script>
+        <script src="scripts/app.js" charset="utf-8"></script>
+        <script src="scripts/directives/keyupDirective.js" charset="utf-8"></script>
+        <script src="scripts/controllers/VideoInput.js" charset="utf-8"></script>
+        <script src="scripts/controllers/VideoCtrl.js" charset="utf-8"></script>
+        <script src="scripts/factory/VideoFactory.js" charset="utf-8"></script>
     </body>
 </html>

@@ -2,17 +2,24 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>VidAnimator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VAR - Video animation recorder</title>
         <meta name="description" content="" />
         <meta name="author" content="Fabrice" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/video.css" />
     </head>
     <body ng-app="VideoApp">
-        <ng-view></ng-view>
+        <header class="container" class="row">
+            <h1>Video animation recorder</h1>
+        </header>
+        <div class="container" class="row">
+            <ng-view class=".col-xs-12 col-md-12"></ng-view>
+        </div>
+        <footer class="container" class="row"></footer>
         <script src="js/lib/angular.min.js" charset="utf-8"></script>
         <script src="js/lib/angular-route.min.js" charset="utf-8"></script>
         <script src="scripts/app.js" charset="utf-8"></script>
-        <script src="scripts/directives/keyupDirective.js" charset="utf-8"></script>
         <script src="scripts/controllers/VideoInput.js" charset="utf-8"></script>
         <script src="scripts/controllers/VideoCtrl.js" charset="utf-8"></script>
         <script src="scripts/factory/VideoFactory.js" charset="utf-8"></script>

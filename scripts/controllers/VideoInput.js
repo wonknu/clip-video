@@ -2,7 +2,6 @@ videoApp.controller('VideoInput', ['$scope', '$location', 'Video', function($sco
 {
     $scope.video = Video;
     $scope.placeholder = 'url to your video';
-    $scope.buttonSubmit = 'Load video';
     $scope.videoForm = function (videoForm)
     {
         if(videoForm.$valid){

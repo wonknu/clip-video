@@ -1,10 +1,16 @@
 /**
  * clip video application stylesheet
  ****************************************/
-.ng-scope {
+header {
+  text-align: center;
+}
+.video-ctrl {
   display: block;
   position: relative;
-  margin: 0 auto;
+  text-align: center;
+}
+.video-ctrl > ul {
+  text-align: left;
 }
 .video-wrapper {
   position: relative;
@@ -18,4 +24,32 @@
   background-color: rgba(0, 209, 49, 0.3);
   top: 0;
   left: 0;
+}
+.circle-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+  transition: all 100ms linear;
+}
+.circle-wrapper .rond {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  background: #fc2e5a;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+.json-render {
+  max-height: 300px;
+  overflow: auto;
+}
+.json-render tbody td {
+  text-align: left;
 }

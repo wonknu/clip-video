@@ -3,30 +3,41 @@ videoApp.controller("VideoCtrl", ['$scope', '$window', 'Video', function ($scope
     $scope.source = Video.getUrl();
     $scope.anim_json = '';
     isAnimating = false;
-    anim = {};
-    $scope.video = angular.element(document.querySelector('video'));
+    $scope.anim = {};
+    $scope.video = document.querySelector('video');
+    $scope.playbackRate = 1;
+    
+    $scope.playAnim = function (e)
+    {
+        $scope.video.playbackRate = 1;
+        $scope.video.currentTime.toFixed(1);
+    };
     
     $scope.trackMove = function (e)
     {
         if(!isAnimating) return;
-        //@TODO : retrieve real video time
-        var time = (Math.round(Math.random() * 99)) + ':' + (Math.round(Math.random() * 99));
-        anim[time] = {
+        $scope.anim[$scope.video.currentTime] = {
             x : e.layerX,
             y : e.layerX
         };
-        $scope.anim_json = JSON.stringify(anim);
+        $scope.anim_json = JSON.stringify($scope.anim);
     };
     
-    angular.element($window).on('keydown', function (e)
+    angular.element($window).on('keyup', function (e)
     {
+        if (e.keyCode == 39){
+            $scope.video.playbackRate = $scope.playbackRate += 0.1;
+        }
+        else if (e.keyCode == 37){
+            $scope.video.playbackRate = $scope.playbackRate -= 0.1;
+        }
         if(e.keyCode !== 9) return;
         isAnimating = !isAnimating;
         if(isAnimating){
-            $scope.video[0].play();
+            $scope.video.play();
         }
         else{
-            $scope.video[0].pause();
+            $scope.video.pause();
         }
     });
 }]);

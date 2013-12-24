@@ -1,13 +1,37 @@
-<div ng-controller="VideoCtrl" >
-    <div class="video-wrapper">
-        <video class="video" controls="controls">
-            <source src="{{source}}" type="video/mp4"></source>
-        </video>
-        <div class="overlay-video" ng-mousemove="trackMove($event)"></div>
+<div ng-controller="VideoCtrl" class="row video-ctrl">
+    <div class="video-componant" class="col-xs-12 col-md-12">
+        <div class="video-wrapper">
+            <video class="video" controls="controls">
+                <source src="{{source}}" type="video/mp4"></source>
+            </video>
+            <div class="overlay-video" ng-mousemove="trackMove($event)">
+                <div class="circle-wrapper">
+                    <div class="rond"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <textarea name="anim_json" ng-model="anim_json" cols="30" rows="10">
-        
-        </textarea>
+    <ul class="row">
+        <li class="col-xs-12 col-md-4">{{playbackRate}}</li>
+    </ul>
+    <div class="row">
+        <div class="table-responsive json-render">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Video time</th>
+                    <th>Position x</th>
+                    <th>Position y</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key,val) in anim">
+                    <td class="browser">{{key}}</td>
+                    <td class="browser">{{val.x}}</td>
+                    <td class="browser">{{val.y}}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
     </div>
 </div>
